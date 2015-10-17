@@ -1,0 +1,19 @@
+#header {
+    border: 1px #ccc solid;
+}
+#header_content {
+    margin: 6px 24px;
+    display: block;
+}
+#authorization {
+    float: right;
+}
+#authorization a {
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+}
+#authorization a:hover {
+    color: #777;
+}

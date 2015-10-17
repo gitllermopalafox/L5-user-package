@@ -1,0 +1,39 @@
+html {
+    background-color: $site_background;
+}
+body {
+    font-family: $main_font;
+    font-size: $root_font_size;
+    line-height: $line_height;
+    font-weight: $root_font_weight;
+    color: $black;
+    background-color: $page_background;
+}
+html,
+body {
+    font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: 0.02em;
+    height: 100%;
+    position: initial;
+}
+.container {
+    width: $desktop;
+    margin: 0 auto;
+    padding: 0 1em;
+}
+#page {
+    width: 960px;
+    margin: 0 auto;
+}
+#page_content {
+    margin: 36px 0;
+}
+#main {
+    width: 780px;
+    float: left;
+}
+#sidebar {
+    width: 180px;
+    float: left;
+}

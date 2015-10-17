@@ -1,0 +1,19 @@
+{
+    "name": "sidneydobber/user",
+    "description": "A package for handling signing up, logging in, lost password, adding, edditing and removing users.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sidney Dobber",
+            "email": "sid@sidneydobber.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SidneyDobber\\User\\": "src"
+        }
+    }
+}
