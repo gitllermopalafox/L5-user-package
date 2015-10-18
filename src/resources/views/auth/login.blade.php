@@ -3,13 +3,14 @@
 @section("content")
 
 <div class="modal modal-small">
+
     <!-- Messages. -->
     @if($errors->has())
-    <ul class="alert alert-error">
-    @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-    @endforeach
-    </ul>
+        <ul class="alert alert-error">
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        </ul>
     @endif
 
     <!-- Form. -->
@@ -17,15 +18,16 @@
         {!! csrf_field() !!}
         <div class="form_item">
             <label for="email">Email</label>
-            <input class="text_input" name="email" type="text" value="{{ Input::old('email') }}">
+            <input class="input-text" name="email" type="text" value="{{ Input::old('email') }}">
         </div>
         <div class="form_item">
             <label for="password">Password</label>
-            <input class="text_input" name="password" type="password">
+            <input class="input-text" name="password" type="password">
         </div>
         <div class="form_item">
-            <label>
-                <input type="checkbox" name="remember"/> Remember Me
+            <label class="checkbox-label">
+                <input class="input-checkbox" type="checkbox" name="remember"/>
+                <span class="checkbox-label__text">Remember Me</span>
             </label>
         </div>
         <div class="button_wrapper clearfix">
@@ -34,6 +36,6 @@
             </div>
         </div>
     </form>
-</div>
 
+</div>
 @stop

@@ -2,6 +2,7 @@
 
 namespace SidneyDobber\User;
 
+use Closure;
 use Validator, Input, Hash, Password, Config, Auth, Request, Message;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface as TokenRepository;
@@ -88,10 +89,8 @@ class EloquentUserRepository implements UserRepositoryInterface {
                 "email" => Input::get("email")
             ];
 
-            // Generate token.
-            $token = $this->tokens->create($user);
             // Send the mail.
-            $result = $this->emailResetLink($user, $token, $this->new_user_template);
+            Password::sendResetLink($credentials, null);
 
             // Custom success messages.
             $this->successes = array(

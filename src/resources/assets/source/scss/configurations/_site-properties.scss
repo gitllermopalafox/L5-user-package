@@ -23,17 +23,20 @@ body {
     padding: 0 1em;
 }
 #page {
+    @include clearfix;
     width: 960px;
     margin: 0 auto;
 }
 #page_content {
-    margin: 36px 0;
+    @include clearfix;
 }
 #main {
+    @include clearfix;
     width: 780px;
     float: left;
 }
 #sidebar {
+    @include clearfix;
     width: 180px;
     float: left;
 }

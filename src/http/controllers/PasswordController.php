@@ -64,8 +64,7 @@ class PasswordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postReset(Request $request)
-    {
+    public function postReset (Request $request) {
         $this->validate($request, [
             'token' => 'required',
             'email' => 'required|email',

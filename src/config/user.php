@@ -12,7 +12,6 @@ return [
     */
 
     'views' => [
-        'register' => 'user::auth/register',
         'login' => 'user::auth/login',
         'reset' => 'user::auth/reset',
         'password' => 'user::auth/password'
@@ -30,7 +29,6 @@ return [
     'redirects' => [
         'login' => '/',
         'logout' => '/',
-        'register' => '/',
         'reset' => '/'
     ],
 

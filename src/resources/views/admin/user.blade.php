@@ -18,11 +18,11 @@
     {!! csrf_field() !!}
     <div class="form_item">
         <label for="username">Username <span>(Can not be changed)</span></label>
-        <input class="text_input" type="text" value="{{ $user->username }}" readonly="readonly" disabled="disabled">
+        <input class="input-text" type="text" value="{{ $user->username }}" readonly="readonly" disabled="disabled">
     </div>
     <div class="form_item">
         <label for="email">Email</label>
-        <input class="text_input" name="email" type="text" value="{{ $user->email }}">
+        <input class="input-text" name="email" type="text" value="{{ $user->email }}">
     </div>
     @if(SidneyDobber\User\AEUser::authorize('user'))
         <div class="form_item">

@@ -1,31 +1,40 @@
-@if($errors->has())
-   @foreach ($errors->all() as $error)
-      <div>{{ $error }}</div>
-  @endforeach
-@endif
+@extends("user::masters.public")
 
-<form method="post">
-    {!! csrf_field() !!}
-    <input type="hidden" name="token" value="{{ $token }}">
+@section("content")
 
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
-    </div>
+<div class="modal modal-small">
 
-    <div>
-        Password
-        <input type="password" name="password">
-    </div>
+	<!-- Messages. -->
+    @if($errors->has())
+		<ul class="alert alert-error">
+		@foreach ($errors->all() as $error)
+			<li>{{ $error }}</li>
+		@endforeach
+		</ul>
+	@endif
 
-    <div>
-        Confirm Password
-        <input type="password" name="password_confirmation">
-    </div>
+	<!-- Form. -->
+	<form class="clearfix modal--form" method="post">
+		{!! csrf_field() !!}
+		<input type="hidden" name="token" value="{{ $token }}">
+		<div class="form_item">
+			<label for="email">Email</label>
+			<input class="input-text" name="email" type="text" value="{{ Input::old('email') }}">
+		</div>
+		<div class="form_item">
+			<label for="password">Password</label>
+			<input class="input-text" name="password" type="password">
+		</div>
+		<div class="form_item">
+			<label for="password_confirmation">Confirm Password</label>
+			<input class="input-text" name="password_confirmation" type="password">
+		</div>
+		<div class="button_wrapper clearfix">
+			<div class="button_wrapper_content">
+				<input class="button" type="submit" value="login">
+			</div>
+		</div>
+	</form>
 
-    <div>
-        <button type="submit">
-            Reset Password
-        </button>
-    </div>
-</form>
+</div>
+@stop

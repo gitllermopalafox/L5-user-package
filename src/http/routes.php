@@ -19,7 +19,7 @@ Route::post('/request', 'SidneyDobber\User\PasswordController@postEmail');
 
 // Password reset routes.
 Route::get('/reset/{token}', 'SidneyDobber\User\PasswordController@getReset');
-Route::post('/reset', 'SidneyDobber\User\PasswordController@postReset');
+Route::post('/reset/{token}', 'SidneyDobber\User\PasswordController@postReset');
 
 
 /*

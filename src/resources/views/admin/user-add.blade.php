@@ -18,11 +18,11 @@
     {!! csrf_field() !!}
     <div class="form_item">
         <label for="username">Username <span>(Can not be changed)</span></label>
-        <input class="text_input" name="username" type="text" value="{{ Input::old('username') }}">
+        <input class="input-text" name="username" type="text" value="{{ Input::old('username') }}">
     </div>
     <div class="form_item">
         <label for="email">Email</label>
-        <input class="text_input" name="email" type="text" value="{{ Input::old('email') }}">
+        <input class="input-text" name="email" type="text" value="{{ Input::old('email') }}">
     </div>
     <div class="form_item">
         <label for="userrole">Userrole</label>

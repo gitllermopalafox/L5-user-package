@@ -83,36 +83,6 @@ class AuthController extends Controller {
 
 
     /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getRegister () {
-        $view = config('user.views.register');
-        return view($view);
-    }
-
-
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function postRegister (Request $request) {
-        $validator = $this->validator($request->all());
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
-        Auth::login($this->create($request->all()));
-        $url = config('user.redirects.register');
-        return redirect($url);
-    }
-
-
-    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
