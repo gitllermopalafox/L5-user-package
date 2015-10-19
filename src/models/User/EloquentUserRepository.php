@@ -2,13 +2,9 @@
 
 namespace SidneyDobber\User;
 
-use Closure;
-use Validator, Input, Hash, Password, Config, Auth, Request, Message;
-use Illuminate\Contracts\Mail\Mailer as MailerContract;
-use Illuminate\Auth\Passwords\TokenRepositoryInterface as TokenRepository;
+use Validator, Input, Hash, Password, Config, Auth, Request;
 
 class EloquentUserRepository implements UserRepositoryInterface {
-
 
     /**
      * Instanse variables.
@@ -21,10 +17,7 @@ class EloquentUserRepository implements UserRepositoryInterface {
      *
      * @param  UserRepositoryInterface $userInstance
      */
-    public function __construct(
-        TokenRepository $tokens,
-        MailerContract $mailer
-    ) {
+    public function __construct() {
         // Setting the templates.
         $this->emails_config = config('emails');
         $this->new_user_template = $this->emails_config['new_user'];
@@ -88,10 +81,8 @@ class EloquentUserRepository implements UserRepositoryInterface {
             $credentials = [
                 "email" => Input::get("email")
             ];
-
             // Send the mail.
             Password::sendResetLink($credentials, null);
-
             // Custom success messages.
             $this->successes = array(
                 "The new user <a href=\"/admin/users/" . $user->id . "\"/>" . $user->username . "</a> has been succesfully created."

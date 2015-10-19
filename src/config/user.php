@@ -14,7 +14,7 @@ return [
     'views' => [
         'login' => 'user::auth/login',
         'reset' => 'user::auth/reset',
-        'password' => 'user::auth/password'
+        'request' => 'user::auth/request'
     ],
 
     /*
@@ -27,8 +27,8 @@ return [
     */
 
     'redirects' => [
-        'login' => '/',
-        'logout' => '/',
+        'login' => '/admin/dashboard',
+        'logout' => '/admin',
         'reset' => '/'
     ],
 

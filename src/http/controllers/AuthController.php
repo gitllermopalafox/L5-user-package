@@ -22,7 +22,6 @@ class AuthController extends Controller {
      * @return void
      */
     public function __construct () {
-        // $this->middleware('auth', ['except' => 'getLogout']);
     }
 
 
@@ -61,7 +60,6 @@ class AuthController extends Controller {
         if ($throttles) {
             $this->clearLoginAttempts($request);
         }
-
         if (method_exists ($this, 'authenticated')) {
             return $this->authenticated($request, Auth::user());
         }

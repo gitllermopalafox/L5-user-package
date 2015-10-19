@@ -5,7 +5,11 @@
 <div class="modal modal-small">
 
     <!-- Messages. -->
-    @if($errors->has())
+    @if(session('status') != null)
+    <ul class="alert alert-status">
+        <li>{{ session('status') }}</li>
+    </ul>
+    @elseif(isset($errors) && $errors->has())
         <ul class="alert alert-error">
         @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
