@@ -25,8 +25,8 @@ class UserServiceProvider extends ServiceProvider
          * Publish config.
          */
         $this->publishes([
-            __DIR__.'/../config/user.php' => config_path('user.php')
-        ], 'config');
+            __DIR__.'/../config/' => config_path('packages/SidneyDobber/User')
+        ], 'packages');
         /*
          * Publish migrations.
          */

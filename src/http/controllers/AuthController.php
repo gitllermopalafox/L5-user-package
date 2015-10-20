@@ -22,6 +22,7 @@ class AuthController extends Controller {
      * @return void
      */
     public function __construct () {
+        $this->user_config = config('packages.SidneyDobber.User.user');
     }
 
 
@@ -44,7 +45,7 @@ class AuthController extends Controller {
         if(Auth::user()) {
             return Redirect::to("/admin/dashboard");
         }
-        $view = config('user.views.login');
+        $view = $this->user_config['views']['login'];
         return view($view);
     }
 
@@ -63,7 +64,7 @@ class AuthController extends Controller {
         if (method_exists ($this, 'authenticated')) {
             return $this->authenticated($request, Auth::user());
         }
-        $url = config('user.redirects.login');
+        $url = $this->user_config['redirects']['login'];
         return redirect()->intended($url);
     }
 
@@ -75,7 +76,7 @@ class AuthController extends Controller {
      */
     public function getLogout () {
         Auth::logout();
-        $url = config('user.redirects.logout');
+        $url = $this->user_config['redirects']['logout'];
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : $url);
     }
 

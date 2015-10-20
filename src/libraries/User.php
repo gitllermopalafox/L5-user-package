@@ -12,10 +12,9 @@ class AEUser {
      * @param  string $on
      */
     public static function authorize($on) {
-        $userroles = config('userroles');
+        $userroles = config('packages.SidneyDobber.User.userroles');
         $userrole = (Auth::user() != null ? $userroles[Auth::user()->userrole] : null);
-        $permissions =  config('permissions');
+        $permissions =  config('packages.SidneyDobber.User.permissions');
         return in_array($userrole, $permissions[$on]);
     }
-
 }

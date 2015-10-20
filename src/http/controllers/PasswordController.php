@@ -18,7 +18,7 @@ class PasswordController extends Controller {
      * @return void
      */
     public function __construct () {
-        //
+        $this->user_config = config('packages.SidneyDobber.User.user');
     }
 
 
@@ -28,7 +28,7 @@ class PasswordController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function getEmail () {
-        $view = config('user.views.request');
+        $view = $this->user_config['views']['request'];
         return view($view);
     }
 
@@ -43,7 +43,8 @@ class PasswordController extends Controller {
         $this->validate($request, ['email' => 'required|email']);
 
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
-            $message->subject($this->getEmailSubject());
+            $message->subject('Your password reset link.');
+            $message->from('noreply@sidneydobber.com');
         });
         switch ($response) {
             case Password::RESET_LINK_SENT:
@@ -64,7 +65,7 @@ class PasswordController extends Controller {
         if (is_null($token)) {
             throw new NotFoundHttpException;
         }
-        $view = config('user.views.reset');
+        $view = $this->user_config['views']['reset'];
         return view($view)->with('token', $token);
     }
 
@@ -91,7 +92,7 @@ class PasswordController extends Controller {
 
         switch ($response) {
             case Password::PASSWORD_RESET:
-                $url = config('user.redirects.reset');
+                $url = $this->user_config['redirects']['reset'];
                 return redirect($url)->with('status', trans($response));
             default:
                 return redirect()->back()

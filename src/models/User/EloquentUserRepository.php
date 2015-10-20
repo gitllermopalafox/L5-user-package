@@ -3,6 +3,8 @@
 namespace SidneyDobber\User;
 
 use Validator, Input, Hash, Password, Config, Auth, Request;
+use Illuminate\Auth\Passwords\TokenRepositoryInterface;
+use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
 class EloquentUserRepository implements UserRepositoryInterface {
 
@@ -17,13 +19,16 @@ class EloquentUserRepository implements UserRepositoryInterface {
      *
      * @param  UserRepositoryInterface $userInstance
      */
-    public function __construct() {
+    public function __construct(
+        TokenRepositoryInterface $tokens,
+        MailerContract $mailer
+    ) {
         // Setting the templates.
-        $this->emails_config = config('emails');
+        $this->emails_config = config('packages.SidneyDobber.User.emails');
         $this->new_user_template = $this->emails_config['new_user'];
         $this->reset_password_template = $this->emails_config['reset_password'];
-        $this->tokens = $tokens;
         $this->mailer = $mailer;
+        $this->tokens = $tokens;
     }
 
 
@@ -67,7 +72,7 @@ class EloquentUserRepository implements UserRepositoryInterface {
     public function create() {
         $rules = array(
             "username" => "required|min:6|unique:users,username",
-            "email" => "required|email|unique:users,email",
+            "email" => "required|email|unique:users,email", 
             "userrole" => "required"
         );
         if($this->validate(Input::all(), $rules)) {
@@ -82,7 +87,11 @@ class EloquentUserRepository implements UserRepositoryInterface {
                 "email" => Input::get("email")
             ];
             // Send the mail.
-            Password::sendResetLink($credentials, null);
+            // Password::sendResetLink($credentials, null);
+
+            $token = $this->tokens->create($user);
+            $this->emailResetLink($user, $token, null);
+
             // Custom success messages.
             $this->successes = array(
                 "The new user <a href=\"/admin/users/" . $user->id . "\"/>" . $user->username . "</a> has been succesfully created."
@@ -91,6 +100,26 @@ class EloquentUserRepository implements UserRepositoryInterface {
         } else {
             return false;
         }
+    }
+
+
+    /**
+     * Send the password reset link via e-mail.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $token
+     * @param  \Closure|null  $callback
+     * @return int
+     */
+    public function emailResetLink($user, $token, Closure $callback = null) {
+        $view = 'user::emails.new-user';
+        return $this->mailer->send($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
+            $m->to($user->getEmailForPasswordReset());
+            $m->from('noreply@sidneydobber.com');
+            if (! is_null($callback)) {
+                call_user_func($callback, $m, $user, $token);
+            }
+        });
     }
 
 
@@ -115,104 +144,6 @@ class EloquentUserRepository implements UserRepositoryInterface {
             return false;
         }
      }
-
-
-    /**
-     * Request user password.
-     */
-    public function request() {
-        $rules = array(
-            "email" => "required|email"
-        );
-        if($this->validate(Input::all(), $rules)) {
-            $credentials = [
-                "email" => Input::get("email")
-            ];
-            // Configure the template for the reset email.
-            Config::set("auth.reminder.email", $this->reset_password_template);
-            // Send the password reset email.
-            Password::remind($credentials, function($message, $user) {
-                $message->from($this->emails_config['from_address']);
-                $message->subject($this->emails_config['reset_password_subject']);
-            });
-             return true;
-        } else {
-             return false;
-        }
-    }
-
-
-    /**
-     * Reset user password.
-     */
-    public function reset() {
-        $rules = array(
-            "email" => "required|email",
-            "password" => "required|min:6",
-            "password_confirmation" => "required|same:password",
-            "token" => "required|exists:password_reminders,token"
-        );
-        if($this->validate(Input::all(), $rules)) {
-             $credentials = [
-                    "email" => Input::get("email"),
-                    "password" => Input::get("password"),
-                    "password_confirmation" => Input::get("password_confirmation"),
-                    "token" => Input::get("token"),
-             ];
-            // Reset the the user with the new credentials.
-            Password::reset($credentials, function($user, $password) {
-                $user->password = Hash::make($password);
-                $user->save();
-                Auth::login($user);
-            });
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    /**
-     * Login user.
-     */
-    public function login() {
-        $rules = array(
-             "username" => "required",
-             "password" => "required"
-        );
-        if($this->validate(Input::all(), $rules)) {
-             $credentials = [
-                    "username" => Input::get("username"),
-                    "password" => Input::get("password")
-             ];
-             if(Auth::attempt($credentials)) {
-                    return true;
-             } else {
-                    return false;
-             }
-        } else {
-             return false;
-        }
-    }
-
-
-    /**
-     * Send the password reset link via e-mail.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $token
-     * @param  \Closure|null  $callback
-     * @return int
-     */
-    public function emailResetLink($user, $token, $view, Closure $callback = null) {
-        $this->mailer->alwaysFrom('codingyoda@gmail.com', 'tester');
-        return $this->mailer->send($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
-            $m->to($user->getEmailForPasswordReset());
-            if (! is_null($callback)) {
-                call_user_func($callback, $m, $user, $token);
-            }
-        });
-    }
 
 
     /**

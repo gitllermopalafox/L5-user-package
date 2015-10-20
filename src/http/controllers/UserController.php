@@ -27,9 +27,9 @@ class UserController extends Controller {
         $this->userInstance = $userInstance;
         // When a user is logged in share the variables with the view.
         if(Auth::user()) {
-            $this->userroles = config('userroles');
+            $this->userroles = config('packages.SidneyDobber.User.userroles');
             $this->userrole = $this->userroles[Auth::user()->userrole];
-            $this->permissions = config('permissions');
+            $this->permissions = config('packages.SidneyDobber.User.permissions');
         }
     }
 
