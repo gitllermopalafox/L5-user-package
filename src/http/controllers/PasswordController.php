@@ -2,6 +2,7 @@
 
 namespace SidneyDobber\User;
 
+use Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -17,8 +18,12 @@ class PasswordController extends Controller {
      *
      * @return void
      */
-    public function __construct () {
+    public function __construct (
+        ResetPassword $reset_password_instance
+    ) {
+        $this->reset_password_instance = $reset_password_instance;
         $this->user_config = config('packages.SidneyDobber.User.user');
+        $this->emails_config = config('packages.SidneyDobber.User.emails');
     }
 
 
@@ -41,11 +46,17 @@ class PasswordController extends Controller {
      */
     public function postEmail (Request $request) {
         $this->validate($request, ['email' => 'required|email']);
-
-        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
-            $message->subject('Your password reset link.');
-            $message->from('noreply@sidneydobber.com');
-        });
+        // Set the credentials.
+        $credentials = [
+            "email" => Input::get("email")
+        ];
+        $user = Password::getUser($credentials);
+        // Email attributes.
+        $view = $this->emails_config['reset_password'];
+        $sender = $this->emails_config['from_address'];
+        $subject = $this->emails_config['reset_password_subject'];
+        // Send the reset link to the user.
+        $response = $this->reset_password_instance->sendResetMail ($view, $user, $sender, $subject);
         switch ($response) {
             case Password::RESET_LINK_SENT:
                 return redirect('/admin')->with('status', trans($response));
@@ -81,15 +92,12 @@ class PasswordController extends Controller {
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
         ]);
-
         $credentials = $request->only(
             'email', 'password', 'password_confirmation', 'token'
         );
-
         $response = Password::reset($credentials, function ($user, $password) {
             $this->resetPassword($user, $password);
         });
-
         switch ($response) {
             case Password::PASSWORD_RESET:
                 $url = $this->user_config['redirects']['reset'];

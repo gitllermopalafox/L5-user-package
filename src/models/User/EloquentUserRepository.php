@@ -3,8 +3,6 @@
 namespace SidneyDobber\User;
 
 use Validator, Input, Hash, Password, Config, Auth, Request;
-use Illuminate\Auth\Passwords\TokenRepositoryInterface;
-use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
 class EloquentUserRepository implements UserRepositoryInterface {
 
@@ -20,15 +18,11 @@ class EloquentUserRepository implements UserRepositoryInterface {
      * @param  UserRepositoryInterface $userInstance
      */
     public function __construct(
-        TokenRepositoryInterface $tokens,
-        MailerContract $mailer
+        ResetPassword $reset_password_instance
     ) {
         // Setting the templates.
         $this->emails_config = config('packages.SidneyDobber.User.emails');
-        $this->new_user_template = $this->emails_config['new_user'];
-        $this->reset_password_template = $this->emails_config['reset_password'];
-        $this->mailer = $mailer;
-        $this->tokens = $tokens;
+        $this->reset_password_instance = $reset_password_instance;
     }
 
 
@@ -75,51 +69,30 @@ class EloquentUserRepository implements UserRepositoryInterface {
             "email" => "required|email|unique:users,email", 
             "userrole" => "required"
         );
-        if($this->validate(Input::all(), $rules)) {
+        // Validate the input.
+        $validated = $this->validate(Input::all(), $rules);
+        // Store the new user if the email was send successfully.
+        if($validated == true) {
             $user = new User;
             $user->username = Input::get("username");
             $user->email = Input::get("email");
             $user->userrole = Input::get("userrole");
             $user->password = Hash::make(str_random(10));
             $user->save();
-            // Set the credentials.
-            $credentials = [
-                "email" => Input::get("email")
-            ];
-            // Send the mail.
-            // Password::sendResetLink($credentials, null);
-
-            $token = $this->tokens->create($user);
-            $this->emailResetLink($user, $token, null);
-
             // Custom success messages.
             $this->successes = array(
                 "The new user <a href=\"/admin/users/" . $user->id . "\"/>" . $user->username . "</a> has been succesfully created."
             );
+            // Email attributes.
+            $view = $this->emails_config['new_user'];
+            $sender = $this->emails_config['from_address'];
+            $subject = $this->emails_config['new_user_subject'];
+            // Send the reset link to the new user.
+            $response = $this->reset_password_instance->sendResetMail ($view, $user, $sender, $subject);
             return true;
         } else {
             return false;
         }
-    }
-
-
-    /**
-     * Send the password reset link via e-mail.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $token
-     * @param  \Closure|null  $callback
-     * @return int
-     */
-    public function emailResetLink($user, $token, Closure $callback = null) {
-        $view = 'user::emails.new-user';
-        return $this->mailer->send($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
-            $m->to($user->getEmailForPasswordReset());
-            $m->from('noreply@sidneydobber.com');
-            if (! is_null($callback)) {
-                call_user_func($callback, $m, $user, $token);
-            }
-        });
     }
 
 

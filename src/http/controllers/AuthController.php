@@ -2,19 +2,15 @@
 
 namespace SidneyDobber\User;
 
-use App\User;
-use Validator;
 use Auth;
 use Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller {
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
+    use AuthenticatesAndRegistersUsers;
 
     /**
      * Create a new authentication controller instance.
@@ -78,20 +74,6 @@ class AuthController extends Controller {
         Auth::logout();
         $url = $this->user_config['redirects']['logout'];
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : $url);
-    }
-
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator (array $data) {
-        return Validator::make($data, [
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6'
-        ]);
     }
 
 }
