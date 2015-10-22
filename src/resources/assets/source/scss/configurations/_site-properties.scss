@@ -1,3 +1,7 @@
+// --------------------------------------------------
+//  Base elements.
+// --------------------------------------------------
+
 html {
     background-color: $site_background;
 }
@@ -17,8 +21,14 @@ body {
     height: 100%;
     position: initial;
 }
+
+
+// --------------------------------------------------
+//  Base sections.
+// --------------------------------------------------
+
 .container {
-    width: $desktop;
+    width: $l;
     margin: 0 auto;
     padding: 0 1em;
 }

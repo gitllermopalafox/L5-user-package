@@ -1,3 +1,7 @@
+// --------------------------------------------------
+//  Modals.
+// --------------------------------------------------
+
 .modal {
     left: 50%;
     top: 50%;
@@ -17,28 +21,25 @@
 
 
 
+// --------------------------------------------------
+//  Forms.
+// --------------------------------------------------
+
 .form_item {
     margin-bottom: 12px;
-}
-.label,
-form input {
-    display: block;
 }
 .label {
     font-weight: bold;
     line-height: 24px;
     font-size: 14px;
+    display: block;
 }
-label span {
+.label span {
     font-size: 13px;
     font-weight: normal;
 }
-textarea {
+.textarea {
     resize: vertical;
-}
-select {
-    font-size: 16px;
-    min-width: 120px;
 }
 .input-text {
     font-size: 13px;
@@ -82,6 +83,9 @@ select {
 }
 
 
+// --------------------------------------------------
+//  Tables.
+// --------------------------------------------------
 
 table {
    width: 100%;
@@ -108,14 +112,18 @@ td {
 }
 
 
-.alert a {
+// --------------------------------------------------
+//  Messages.
+// --------------------------------------------------
+
+.message a {
     color: #0074bd;
     text-decoration: none;
 }
-.alert a:hover {
+.message a:hover {
     text-decoration: underline;
 }
-.alert {
+.message {
     padding: 24px;
     margin: 12px 0;
     list-style: none;
@@ -123,22 +131,22 @@ td {
     border-left-width: 6px;
     border-style: solid;
 }
-.alert-status {
+.message-status {
     color: #002a40;
     border-color: #72bfe4;
     background-color: #eff9fe;
 }
-.alert-success {
+.message-success {
     color: #234600;
     border-color: #bbee77;
     background-color: #f8fff0;
 }
-.alert-warning {
+.message-warning {
     color: #884400;
     border-color: #eedd55;
     background-color: #fffce5;
 }
-.alert-error {
+.message-error {
     color: #8c2e0b;
     border-color: #ffb2b3;
     background-color: #fffafa;

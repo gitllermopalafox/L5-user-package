@@ -6,7 +6,7 @@
 
 	<!-- Messages. -->
     @if($errors->has())
-		<ul class="alert alert-error">
+		<ul class="message message-error">
 		@foreach ($errors->all() as $error)
 			<li>{{ $error }}</li>
 		@endforeach

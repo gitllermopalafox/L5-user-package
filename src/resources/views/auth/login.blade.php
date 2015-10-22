@@ -6,11 +6,11 @@
 
     <!-- Messages. -->
     @if(session('status') != null)
-    <ul class="alert alert-status">
+    <ul class="message message-status">
         <li>{{ session('status') }}</li>
     </ul>
     @elseif(isset($errors) && $errors->has())
-        <ul class="alert alert-error">
+        <ul class="message message-error">
         @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
         @endforeach

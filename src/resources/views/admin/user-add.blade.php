@@ -6,7 +6,7 @@
 
 <!-- Messages. -->
 @if($errors)
-    <ul class="alert alert-error">
+    <ul class="message message-error">
     @foreach ($errors as $error)
         <li>{{ $error }}</li>
     @endforeach

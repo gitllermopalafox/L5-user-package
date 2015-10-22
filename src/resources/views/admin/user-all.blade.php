@@ -6,7 +6,7 @@
 
 <!-- Messages. -->
 @if($successes)
-    <ul class="alert alert-success">
+    <ul class="message message-success">
     @foreach ($successes as $success)
         <li>{!! $success !!}</li>
     @endforeach
