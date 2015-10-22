@@ -2,7 +2,6 @@
 //  Commons.
 // --------------------------------------------------
 
-@import "susy";
 @import "../../node_modules/normalize-scss/normalize";
 
 
@@ -17,11 +16,13 @@
 
 
 // --------------------------------------------------
-//  Generics.
+//  Miscellaneous.
 // --------------------------------------------------
 
-@import "generics/typography";
-@import "generics/generics";
+@import "miscellaneous/typography";
+@import "miscellaneous/messages";
+@import "miscellaneous/forms";
+@import "miscellaneous/tables";
 
 
 // --------------------------------------------------
@@ -29,3 +30,5 @@
 // --------------------------------------------------
 
 @import "components/header";
+@import "components/sidebar";
+@import "components/modals";

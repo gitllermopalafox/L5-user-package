@@ -1,0 +1,20 @@
+// --------------------------------------------------
+//  Modals.
+// --------------------------------------------------
+
+.modal {
+    left: 50%;
+    top: 50%;
+    position: fixed;
+}
+.modal-small {
+    width: 400px;
+    margin-left: -200px;
+    margin-top: -200px;
+}
+.modal--form {
+    @include clearfix;
+    background-color: #fff;
+    padding: 24px;
+    width: 100%;
+}

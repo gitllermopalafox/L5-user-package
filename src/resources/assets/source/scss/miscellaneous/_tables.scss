@@ -1,0 +1,33 @@
+// --------------------------------------------------
+//  Tables.
+// --------------------------------------------------
+
+table {
+   width: 100%;
+}
+tbody {
+   font-size: 13px;
+}
+tr {
+   border: 1px solid #ddd;
+}
+tr:nth-child(even) {
+   background-color: #fff;
+}
+th {
+   font-size: 14px;
+   text-align: left;
+   background-color: #fff;
+}
+th,
+td {
+   line-height: 32px;
+   padding: 6px 12px;
+   vertical-align: top;
+}
+.crud_wrapper {
+    visibility: hidden;
+}
+tr:hover .crud_wrapper {
+    visibility: visible;
+}
