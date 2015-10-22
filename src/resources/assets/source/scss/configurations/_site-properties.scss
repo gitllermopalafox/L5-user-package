@@ -10,14 +10,12 @@ body {
     font-size: $root_font_size;
     line-height: $line_height;
     font-weight: $root_font_weight;
-    color: $black;
     background-color: $page_background;
 }
 html,
 body {
     font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    letter-spacing: 0.02em;
     height: 100%;
     position: initial;
 }
@@ -44,6 +42,9 @@ body {
     @include clearfix;
     width: 780px;
     float: left;
+}
+.main_content {
+    margin: 2rem 0;
 }
 .sidebar {
     @include clearfix;

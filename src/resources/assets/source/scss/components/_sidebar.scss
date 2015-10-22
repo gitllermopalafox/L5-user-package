@@ -2,6 +2,11 @@
 //  Sidebar.
 // --------------------------------------------------
 
+.sidebar_content {
+    margin: 2rem 0;
+}
 .sidebar__navigation {
+    padding-left: 0;
+    margin: 0;
     list-style: none;
 }

@@ -4,14 +4,14 @@
     <div class="sidebar_content">
         <ul class="sidebar__navigation">
             <li>
-                <a href="/admin/dashboard">Dashboard</a>
+                <a class="link--text" href="/admin/dashboard">Dashboard</a>
             </li>
             @if(\SidneyDobber\User\AEUser::authorize('users'))
                 <li>
-                    <a href="/admin/users">Users</a>
+                    <a class="link--text" href="/admin/users">Users</a>
                 </li>
                 <li>
-                    <a href="/admin/users/add">Add user</a>
+                    <a class="link--text" href="/admin/users/add">Add user</a>
                 </li>
             @endif
         </ul>

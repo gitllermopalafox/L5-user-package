@@ -7,25 +7,23 @@
 }
 .label {
     font-weight: bold;
-    line-height: 24px;
-    font-size: 14px;
     display: block;
 }
 .label span {
-    font-size: 13px;
+    font-size: 0.8rem;
     font-weight: normal;
 }
 .textarea {
     resize: vertical;
 }
 .input-text {
-    font-size: 13px;
-    border: 1px solid #ddd;
-    background-color: #fff;
+    font-size: 0.9rem;
+    border: 1px solid $border_color;
+    background-color: $white;
     padding: 10px;
     width: 100%;
 }
-.input-checkbox {
+.checkbox {
     vertical-align: middle;
     display: inline-block;
     margin-right: 0.25rem;
@@ -33,9 +31,15 @@
 .checkbox-label__text {
     vertical-align: middle;
 }
+
+
+// --------------------------------------------------
+//  Buttons.
+// --------------------------------------------------
+
 .button {
-    font-size: 12px;
-    color: #fff;
+    font-size: 0.9rem;
+    color: $white;
     text-align: center;
     text-transform: capitalize;
     padding: 0 15px;
@@ -57,4 +61,12 @@
 .button_wrapper_content a {
     color: #02a3e2;
     line-height: 32px;
+}
+
+.link--text {
+    color: $black;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
 }
