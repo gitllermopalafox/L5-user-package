@@ -6,10 +6,10 @@
         <title>Atom End user package</title>
     </head>
     <body>
-        <div id="page">
-            <div id="page_content">
-                <div id="main">
-                    <div id="main_content">
+        <div class="page">
+            <div class="page_content">
+                <div class="main">
+                    <div class="main_content">
                         @yield("content")
                     </div>
                 </div>

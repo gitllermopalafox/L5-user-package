@@ -59,6 +59,6 @@ return array(
 	|
 	*/
 
-	'reset_password_subject' => 'Reset password',
+	'reset_password_subject' => 'Reset your password',
 
 );

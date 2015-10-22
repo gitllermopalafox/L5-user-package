@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link type="text/css" rel="stylesheet" href="{{ URL::asset('packages/atomend/aeuser/css/style.css') }}"/>
-        <title>Unauthorized</title>
-    </head>
-    <body>
-        <div id="page">
-            <div id="page_content">
-                <div id="main">
-                    <div id="main_content">
-                        <p>You are not authorized to access this content.
-                    </div>
-                </div>
-            </div><!-- page_content close. -->
-        </div><!-- page close. -->
-    </body>
-</html>
+@extends("user::masters.public")
+
+@section("content")
+
+<div class="modal modal-small">
+
+    <ul class="alert alert-status">
+        <li>
+            <h3>You are not authorized to access this content</h3>
+            <p>This page is excluded by the system administrator. Your current role does not allow you to view the requested page.</p>
+        </li>
+    </ul>
+</div>
+
+@stop

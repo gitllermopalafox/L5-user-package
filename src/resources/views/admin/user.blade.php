@@ -17,16 +17,16 @@
 <form method="post">
     {!! csrf_field() !!}
     <div class="form_item">
-        <label for="username">Username <span>(Can not be changed)</span></label>
+        <label class="label" for="username">Username <span>(Can not be changed)</span></label>
         <input class="input-text" type="text" value="{{ $user->username }}" readonly="readonly" disabled="disabled">
     </div>
     <div class="form_item">
-        <label for="email">Email</label>
+        <label class="label" for="email">Email</label>
         <input class="input-text" name="email" type="text" value="{{ $user->email }}">
     </div>
     @if(SidneyDobber\User\AEUser::authorize('user'))
         <div class="form_item">
-            <label for="userrole">Userrole</label>
+            <label class="label" for="userrole">Userrole</label>
             <select name="userrole" id="userrole">
                 @foreach($userroles as $key => $value)
                     @if($key == $userrole_value)

@@ -18,14 +18,14 @@
     @endif
 
     <!-- Form. -->
-    <form class="clearfix modal--form" method="post">
+    <form class="modal--form" method="post">
         {!! csrf_field() !!}
         <div class="form_item">
-            <label for="email">Email</label>
+            <label class="label" for="email">Email</label>
             <input class="input-text" name="email" type="text" value="{{ Input::old('email') }}">
         </div>
         <div class="form_item">
-            <label for="password">Password</label>
+            <label class="label" for="password">Password</label>
             <input class="input-text" name="password" type="password">
         </div>
         <div class="form_item">

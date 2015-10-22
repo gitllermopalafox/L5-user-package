@@ -9,6 +9,7 @@
     margin-top: -200px;
 }
 .modal--form {
+    @include clearfix;
     background-color: #fff;
     padding: 24px;
     width: 100%;
@@ -19,11 +20,11 @@
 .form_item {
     margin-bottom: 12px;
 }
-label,
+.label,
 form input {
     display: block;
 }
-label {
+.label {
     font-weight: bold;
     line-height: 24px;
     font-size: 14px;

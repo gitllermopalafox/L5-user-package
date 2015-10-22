@@ -7,11 +7,11 @@
     </head>
     <body>
         @include("user::includes.header") 
-        <div id="page">
-            <div id="page_content">
+        <div class="page">
+            <div class="page_content">
                 @include("user::includes.sidebar")
-                <div id="main">
-                    <div id="main_content">
+                <div class="main">
+                    <div class="main_content">
                         @yield("content")
                     </div>
                 </div>
